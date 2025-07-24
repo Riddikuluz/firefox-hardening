@@ -10,7 +10,7 @@
 /****************************************************************************
  * Betterfox                                                                *
  * "Ad meliora"                                                             *
- * version: 138                                                             *
+ * version: 140                                                             *
  * url: https://github.com/yokoffing/Betterfox                              *
  ****************************************************************************/
 
@@ -54,7 +54,6 @@ user_pref("browser.urlbar.speculativeConnect.enabled", false);
 user_pref("browser.places.speculativeConnect.enabled", false);
 user_pref("network.prefetch-next", false);
 user_pref("network.predictor.enabled", false);
-user_pref("network.predictor.enable-prefetch", false);
 
 /** EXPERIMENTAL ***/
 user_pref("layout.css.grid-template-masonry-value.enabled", true);
@@ -90,7 +89,6 @@ user_pref("privacy.history.custom", true);
 user_pref("browser.urlbar.trimHttps", true);
 user_pref("browser.urlbar.untrimOnUserInteraction.featureGate", true);
 user_pref("browser.search.separatePrivateDefault.ui.enabled", true);
-user_pref("browser.urlbar.update2.engineAliasRefresh", true);
 user_pref("browser.search.suggest.enabled", false);
 user_pref("browser.urlbar.quicksuggest.enabled", false);
 user_pref("browser.urlbar.groupLabels.enabled", false);
@@ -166,11 +164,11 @@ user_pref("browser.discovery.enabled", false);
 user_pref("browser.shell.checkDefaultBrowser", false);
 user_pref(
   "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons",
-  false,
+  false
 );
 user_pref(
   "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features",
-  false,
+  false
 );
 user_pref("browser.preferences.moreFromMozilla", false);
 user_pref("browser.aboutConfig.showWarning", false);
@@ -190,7 +188,6 @@ user_pref("full-screen-api.warning.timeout", 0);
 /** URL BAR ***/
 user_pref("browser.urlbar.unitConversion.enabled", true);
 user_pref("browser.urlbar.trending.featureGate", false);
-user_pref("dom.text_fragments.create_text_fragment.enabled", true);
 
 /** NEW TAB PAGE ***/
 user_pref("browser.newtabpage.activity-stream.default.sites", "");
@@ -219,138 +216,122 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 // visit https://github.com/yokoffing/Betterfox/wiki/Common-Overrides
 // Enter your personal overrides below this line:
 
-// PREF: preferred color scheme for websites and sub-pages
-// 0 = Dark theme
-// 1 = Light theme
-// 2 = match OS theme [Betterfox default]
-user_pref("layout.css.prefers-color-scheme.content-override", 2);
-
+/** FONT RENDERING ***/
 // PREF: improve font rendering by using DirectWrite everywhere like Chrome [WINDOWS]
 user_pref("gfx.font_rendering.cleartype_params.rendering_mode", 5);
 user_pref("gfx.font_rendering.cleartype_params.cleartype_level", 100);
 user_pref(
   "gfx.font_rendering.cleartype_params.force_gdi_classic_for_families",
-  "",
+  ""
 );
 user_pref("gfx.font_rendering.directwrite.use_gdi_table_loading", false);
 
-// PREF: restore Top Sites on New Tab page
-user_pref("browser.newtabpage.activity-stream.feeds.topsites", true);
-
-// PREF: remove default Top Sites (Facebook, Twitter, etc.)
-// This does not block you from adding your own.
-user_pref("browser.newtabpage.activity-stream.default.sites", "");
-
-// PREF: remove sponsored content on New Tab page
-user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false); // Sponsored shortcuts
-user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false); // Recommended by Pocket
-user_pref("browser.newtabpage.activity-stream.showSponsored", false); // Sponsored Stories
-
+/** CONTAINERS ***/
 // PREF: enable container tabs
 user_pref("privacy.userContext.enabled", true);
 
-// visit https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening
-// Enter your personal Optional Hardening below this line:
-
+/** SYNC & ACCOUNTS ***/
 // PREF: disable Firefox Sync
 user_pref("identity.fxaccounts.enabled", false);
 // PREF: disable the Firefox View tour from popping up
 user_pref("browser.firefox-view.feature-tour", '{"screen":"","complete":true}');
 
+/** LOGIN & AUTOFILL ***/
 // PREF: disable login manager
 user_pref("signon.rememberSignons", false);
 // PREF: disable address and credit card manager
 user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 
+/** SOCIAL MEDIA ***/
 // PREF: do not allow embedded tweets, Instagram, Reddit, and Tiktok posts
 user_pref("urlclassifier.trackingSkipURLs", "");
 user_pref("urlclassifier.features.socialtracking.skipURLs", "");
 
+/** HTTPS & DNS ***/
 // PREF: enable HTTPS-Only Mode
 // Warn me before loading sites that don't support HTTPS
 // in both Normal and Private Browsing windows.
 user_pref("dom.security.https_only_mode", true);
 user_pref("dom.security.https_only_mode_error_page_user_suggestions", true);
-
 // PREF: enforce DNS-over-HTTPS (DoH)
 user_pref("network.trr.mode", 2);
 user_pref("network.trr.max-fails", 5);
 
+/** DOWNLOADS ***/
 // PREF: always ask where to download
 // true = Direct download
 // false = The user is asked what to do
 user_pref("browser.download.useDownloadDir", false);
 
-// PREF: display the installation prompt for all extensions
-user_pref("extensions.postDownloadThirdPartyPrompt", false);
-
-// PREF: Restore previous session on startup
+/** STARTUP & SESSION ***/
+// PREF: restore previous session on startup
 // 0 = Blank page
 // 1 = Home page
+
 // 2 = Home page and additional windows
 // 3 = Restore previous session
 user_pref("browser.startup.page", 3);
 
-// PREF: Always show the bookmarks toolbar
+/** BOOKMARKS ***/
+// PREF: always show the bookmarks toolbar
 // Controls the visibility of the bookmarks toolbar:
 // "always" = Always visible
 // "never" = Never visible
 // "newtab" = Visible only on the New Tab page
 user_pref("browser.toolbars.bookmarks.visibility", "always");
 
-// PREF: habilita autoscroll (scroll automático con clic medio)
+/** MOUSE BEHAVIOR [LINUX] ***/
+// PREF: enable autoscroll (automatic scroll with middle click)
 user_pref("general.autoScroll", true);
-// PREF: evita que el clic medio pegue el contenido del portapapeles en la página
+// PREF: prevent middle click from pasting clipboard content on page
 user_pref("middlemouse.paste", false);
 
-// === Activar DRM en Firefox via user.js ===
-// 1. Mostrar la opción en Preferencias (“Play DRM‑controlled content”)
-user_pref("browser.eme.ui.enabled", true);
-// 2. Habilitar el motor EME (Encrypted Media Extensions)
-user_pref("media.eme.enabled", true);
-// 3. Permitir instalación y uso de Widevine (el CDM de Google para Netflix, etc.)
-user_pref("media.gmp-widevinecdm.enabled", true);
-user_pref("media.gmp-widevinecdm.visible", true);
-// 4. Permitir que el gestor de módulos busque y actualice CDMs automáticamente
-user_pref("media.gmp-manager.updateEnabled", true);
-
-// === RFP Básico + WebRTC off (Recomendados) ===
-
-// 1. Core RFP (incluye letterboxing, timer‑jitter, spoofing de UA genérico, spoofing de timezone, canvas & audio spoofing, bloqueo de addons…)
+/** FINGERPRINTING RESISTANCE ***/
+// PREF: enable core RFP (includes letterboxing, timer‑jitter, generic UA spoofing, timezone spoofing, canvas & audio spoofing, addon blocking...)
 user_pref("privacy.resistFingerprinting", true);
-
-// 2. Rechazar lecturas de canvas sin interacción
-user_pref("privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts", true);
-
-// 3. Bloquear detección de extensiones
+// PREF: reject canvas reads without interaction
+user_pref(
+  "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts",
+  true
+);
+// PREF: block extension detection
 user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
 
-// 4. Desactivar WebRTC para evitar fugas de IP
+/** WEBRTC ***/
+// PREF: disable WebRTC to prevent IP leaks
 user_pref("media.peerconnection.enabled", false);
 user_pref("media.peerconnection.ice.default_address_only", true);
 
-// === Extras estilo LibreWolf (Opcionales) ===
+// PREF: hide fonts in private mode
+user_pref("layout.css.font-visibility.private", 2);
 
-// 5. Letterboxing con bloques de 200×100 px
+// visit https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening
+// Enter your personal Optional Hardening below this line:
+
+/** OPTIONAL HARDENING - UNCOMMENT TO ENABLE ***/
+// PREF: letterboxing with 200×100 px blocks
 // user_pref("privacy.resistFingerprinting.letterboxing", true);
 
-// 6. Ajuste de timer‑jitter (µs); con RFP=true ya viene a 1000 µs por defecto
+// PREF: timer‑jitter adjustment (µs); with RFP=true it defaults to 1000 µs
 // user_pref("privacy.resistFingerprinting.reduceTimerPrecision.jitterMax", 1000);
 
-// 7. UA override homogéneo (Firefox 102 ejemplo)
+// PREF: homogeneous UA override (Firefox 102 example)
 // user_pref("general.useragent.override", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0");
 
-// 8. WebGL “mínimo” y sin debug info
+// PREF: minimal WebGL and without debug info
 // user_pref("webgl.enable-debug-renderer-info", false);
 // user_pref("webgl.min_capability_mode", true);
 
-// 9. Ocultar fuentes en modo privado
-// user_pref("layout.css.font-visibility.private", 2);
-
-// 10. Desactivar APIs de performance/timing
+// PREF: disable performance/timing APIs
 // user_pref("dom.enable_performance", false);
 // user_pref("dom.enable_user_timing", false);
 
-// 11. WebAudio deshabilitado
+// PREF: disable WebAudio
 // user_pref("dom.webaudio.enabled", false);
+
+// PREF: disable DRM
+//user_pref("browser.eme.ui.enabled", false);
+//user_pref("media.eme.enabled", false);
+//user_pref("media.gmp-widevinecdm.enabled", false);
+//user_pref("media.gmp-manager.updateEnabled", false);
