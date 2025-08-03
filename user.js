@@ -289,22 +289,19 @@ user_pref("middlemouse.paste", false);
 
 /** FINGERPRINTING RESISTANCE ***/
 // PREF: enable core RFP (includes letterboxing, timer‑jitter, generic UA spoofing, timezone spoofing, canvas & audio spoofing, addon blocking...)
-user_pref("privacy.resistFingerprinting", true);
+//user_pref("privacy.resistFingerprinting", true);
 // PREF: reject canvas reads without interaction
-user_pref(
-  "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts",
-  true
-);
+//user_pref("privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts",true);
 // PREF: block extension detection
-user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
+//user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
 
 /** WEBRTC ***/
 // PREF: disable WebRTC to prevent IP leaks
-user_pref("media.peerconnection.enabled", false);
-user_pref("media.peerconnection.ice.default_address_only", true);
+//user_pref("media.peerconnection.enabled", false);
+//user_pref("media.peerconnection.ice.default_address_only", true);
 
 // PREF: hide fonts in private mode
-user_pref("layout.css.font-visibility.private", 2);
+//user_pref("layout.css.font-visibility.private", 2);
 
 // visit https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening
 // Enter your personal Optional Hardening below this line:

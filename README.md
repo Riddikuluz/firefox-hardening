@@ -51,32 +51,27 @@ Plus additional custom hardening for enhanced privacy protection.
 
 ### 🛡️ Custom Hardening Features
 
-#### Privacy & Fingerprinting Protection
-
-- **Resist Fingerprinting Protocol (RFP)**: Comprehensive fingerprinting protection with automatic canvas blocking
-- **WebRTC completely disabled**: Prevents IP leaks through WebRTC connections
-- **Canvas protection**: Automatic rejection of canvas fingerprinting attempts
-- **Extension detection blocking**: Prevents websites from detecting installed extensions
-- **Color scheme**: Matches OS theme preference
-
-#### Security Enhancements
+#### Privacy & Security Enhancements
 
 - **HTTPS-Only Mode**: Forces HTTPS connections with user warnings in all windows
-- **DNS-over-HTTPS (DoH)**: Enforced encrypted DNS queries with strict mode
+- **DNS-over-HTTPS (DoH)**: Enforced encrypted DNS queries with strict mode (mode 2)
 - **Custom DNS Provider**: Uses BeaconDB for enhanced geolocation services
-- **DRM Support**: Currently using Firefox defaults (enabled) - optional hardening section includes DRM disabling options for maximum privacy
-- **Container tabs**: Enhanced isolation between browsing contexts
+- **Container tabs**: Enhanced isolation between browsing contexts enabled
+- **Social media tracking blocked**: Embedded content from social platforms disabled
 
 #### Additional Privacy Options
 
-The configuration includes commented optional hardening features:
+The configuration includes commented optional hardening features that can be enabled by uncommenting:
 
+- **Resist Fingerprinting Protocol (RFP)**: Comprehensive fingerprinting protection with automatic canvas blocking
+- **WebRTC disabling**: Prevents IP leaks through WebRTC connections
 - **Letterboxing**: Viewport fingerprinting protection with 200×100px blocks
 - **WebGL restrictions**: Minimal capability mode and debug info blocking
 - **Font visibility limitations**: Hide system fonts in private browsing
 - **Performance API restrictions**: Disable timing APIs for enhanced privacy
 - **WebAudio disabling**: Complete audio fingerprinting protection
 - **User Agent override**: Homogeneous UA spoofing options
+- **DRM disabling**: Complete DRM removal for maximum privacy
 
 ## Key Features
 
@@ -115,9 +110,9 @@ The configuration includes commented optional hardening features:
 
 ⚠️ **Backup**: Keep a backup of your current Firefox profile before applying these changes.
 
-⚠️ **DRM Content**: DRM is enabled for streaming services. Disable if maximum privacy is preferred over media compatibility.
+⚠️ **DRM Content**: DRM is enabled by default for streaming services. Disable in optional hardening if maximum privacy is preferred over media compatibility.
 
-⚠️ **WebRTC**: Completely disabled - may break video calling websites. Re-enable specific preferences if needed.
+⚠️ **Fingerprinting Protection**: RFP and WebRTC are currently disabled for compatibility. Enable in optional hardening for maximum privacy.
 
 ## Testing Your Configuration
 
@@ -136,9 +131,9 @@ After applying the configuration:
 
 **Website functionality problems:**
 
-- Try disabling RFP temporarily: `privacy.resistFingerprinting = false`
+- Try disabling RFP temporarily if enabled: `privacy.resistFingerprinting = false`
 - Add problematic sites to container exceptions
-- Temporarily enable WebRTC if video calling is needed
+- Enable WebRTC if video calling is needed
 
 **Performance concerns:**
 
@@ -148,41 +143,54 @@ After applying the configuration:
 
 **Streaming service issues:**
 
-- Ensure DRM preferences are enabled and Widevine CDM is installed
+- Ensure DRM preferences remain enabled for streaming compatibility
 - Check that `media.eme.enabled = true` in about:config
-- If DRM was disabled in optional hardening, re-enable for streaming compatibility
-- Restart Firefox after DRM installation
+- Restart Firefox after any DRM-related changes
 
 ## Current Configuration Status
 
-✅ **Implemented Features:**
+✅ **Currently Active Features:**
 
-- Fingerprinting Resistance (RFP) with automatic canvas protection
-- WebRTC completely disabled for IP leak prevention
 - HTTPS-Only Mode enforced globally
 - DNS-over-HTTPS in strict mode (mode 2)
 - Complete telemetry elimination
-- Container tabs enabled
+- Container tabs enabled and UI visible
 - Social media tracking blocked
 - Login manager and autofill disabled
+- Firefox Sync disabled
+- Custom BeaconDB geolocation provider
 
-⚠️ **Optional Features (Currently Commented):**
+⚠️ **Optional Features (Currently Commented - Available for Manual Activation):**
 
-- Letterboxing for viewport fingerprinting protection
-- DRM disabling for maximum privacy (will break streaming services)
-- WebGL/WebAudio hardening (may break some websites)
-- Performance API restrictions
-- User Agent override for homogeneous spoofing
+- **Resist Fingerprinting Protocol (RFP)**: Complete fingerprinting protection
+- **WebRTC disabling**: IP leak prevention (will break video calling)
+- **Letterboxing**: Viewport fingerprinting protection
+- **DRM disabling**: Maximum privacy (will break streaming services)
+- **WebGL/WebAudio hardening**: May break multimedia websites
+- **Performance API restrictions**: May break timing-dependent applications
+- **User Agent override**: Homogeneous spoofing
 
 ## Optional Hardening
 
 For maximum privacy, consider uncommenting these additional features in the user.js:
 
-### Available Optional Features:
+### Maximum Privacy Configuration
 
-#### Maximum Fingerprinting Protection
+#### Enable Resist Fingerprinting Protocol
 
 ```javascript
+// Enable core RFP with comprehensive protection
+user_pref("privacy.resistFingerprinting", true);
+
+// Automatic canvas blocking without user prompts
+user_pref(
+  "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts",
+  true
+);
+
+// Block extension detection
+user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
+
 // Letterboxing with 200×100px viewport blocks
 user_pref("privacy.resistFingerprinting.letterboxing", true);
 
@@ -190,15 +198,12 @@ user_pref("privacy.resistFingerprinting.letterboxing", true);
 user_pref("privacy.resistFingerprinting.reduceTimerPrecision.jitterMax", 1000);
 ```
 
-#### Complete Media Hardening
+#### WebRTC Protection
 
 ```javascript
-// WebGL restrictions - minimal capability mode
-user_pref("webgl.enable-debug-renderer-info", false);
-user_pref("webgl.min_capability_mode", true);
-
-// Block WebAudio fingerprinting (may break audio-heavy sites)
-user_pref("dom.webaudio.enabled", false);
+// Disable WebRTC completely to prevent IP leaks
+user_pref("media.peerconnection.enabled", false);
+user_pref("media.peerconnection.ice.default_address_only", true);
 ```
 
 #### Advanced Privacy Features
@@ -210,9 +215,20 @@ user_pref("layout.css.font-visibility.private", 2);
 // Disable performance timing APIs
 user_pref("dom.enable_performance", false);
 user_pref("dom.enable_user_timing", false);
+
+// Block WebAudio fingerprinting
+user_pref("dom.webaudio.enabled", false);
 ```
 
-#### Maximum Privacy (Will Break Streaming)
+#### WebGL Restrictions
+
+```javascript
+// Minimal WebGL capability mode
+user_pref("webgl.enable-debug-renderer-info", false);
+user_pref("webgl.min_capability_mode", true);
+```
+
+#### Maximum Privacy (Will Break Streaming Services)
 
 ```javascript
 // Disable DRM completely for maximum privacy
@@ -234,16 +250,26 @@ user_pref(
 
 ### ⚠️ **Important Notes on Optional Features:**
 
+- **RFP (Resist Fingerprinting)**: Provides excellent privacy but may break some websites and change browser behavior
+- **WebRTC Disabling**: Will break video calling, WebRTC games, and peer-to-peer applications
 - **Letterboxing**: May cause website layout issues but provides excellent fingerprinting protection
 - **DRM Disabling**: Will break Netflix, Spotify, Amazon Prime, and other streaming services
 - **WebAudio Blocking**: May break websites with audio processing or music applications
 - **WebGL Restrictions**: Could affect 3D graphics, games, and some data visualization sites
 - **Performance API Restrictions**: May break timing-dependent web applications
 
+## Activation Guide
+
+To enable optional hardening features:
+
+1. Open the `user.js` file in a text editor
+2. Find the desired preference in the "OPTIONAL HARDENING" section
+3. Remove the `//` at the beginning of the line to uncomment it
+4. Save the file and restart Firefox
+5. Test your frequently used websites for compatibility
+
 ## Credits
 
-- Based on [Betterfox v140](https://github.com/yokoffing/Betterfox) project
+- Based on [Betterfox](https://github.com/yokoffing/Betterfox) project
 - Additional hardening inspired by [LibreWolf](https://librewolf.net/)
 - Privacy testing resources from [PrivacyGuides](https://privacyguides.org/)
-- Configuration version: **140**
-- Last updated: July 2025
