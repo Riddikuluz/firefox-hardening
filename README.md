@@ -87,7 +87,6 @@ The configuration includes commented optional hardening features that can be ena
 
 ### ⚡ Performance Optimizations
 
-- **Font rendering**: DirectWrite optimizations (Windows-specific)
 - **Cache optimizations**: Memory-focused caching with disabled disk cache
 - **Network enhancements**: Increased connection limits and optimized SSL tokens
 - **Media improvements**: Enhanced caching and decoding parameters
@@ -162,6 +161,7 @@ After applying the configuration:
 
 ⚠️ **Optional Features (Currently Commented - Available for Manual Activation):**
 
+- **Font rendering**: DirectWrite optimizations (Windows-specific)
 - **Resist Fingerprinting Protocol (RFP)**: Complete fingerprinting protection
 - **WebRTC disabling**: IP leak prevention (will break video calling)
 - **Letterboxing**: Viewport fingerprinting protection
