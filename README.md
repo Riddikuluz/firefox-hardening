@@ -1,136 +1,73 @@
 # Firefox Hardening Configuration
 
-A comprehensive Firefox user.js configuration file for enhanced privacy, security, and performance, based on the Betterfox project with additional custom hardening modifications.
+Firefox hardening profile based on Betterfox plus custom overrides.
 
-## Overview
+## What this repository contains
 
-This configuration applies three main optimization categories:
+- `buildScript.sh`: builds the final `user.js`
+- `betterfox.js`: upstream Betterfox `user.js` downloaded by the script
+- `overrides.js`: Custom preferences
+- `user.js`: final file to copy into your Firefox profile
 
-- **FastFox**: Performance optimizations
-- **SecureFox**: Security enhancements
-- **PeskyFox**: UI/UX improvements
+## Build the final user.js
 
-Plus additional custom hardening for enhanced privacy protection.
+The script is Bash (`#!/usr/bin/env bash`). From fish, run it with Bash or make it executable.
 
-## Installation
+```bash
+# Works from fish
+bash ./buildScript.sh
 
-1. Open Firefox and type `about:profiles` in the address bar
-2. Find your current profile (marked as "This is the profile in use")
-3. Click "Open Folder" next to "Root Directory"
-4. Copy the `user.js` file to this directory
-5. Restart Firefox for changes to take effect
+# Optional: make executable once
+chmod +x ./buildScript.sh
+./buildScript.sh
+```
 
-**After restarting Firefox:**
+What it does:
 
-6. **Get an adblocker**: Install uBlock Origin with this recommended filters from [yokoffing's filterlists](https://github.com/yokoffing/filterlists#guidelines)
+1. Downloads Betterfox `user.js` into `betterfox.js`
+2. Finds `// Enter your personal overrides below this line:`
+3. Inserts all lines from `overrides.js` after that marker
+4. Writes the result to `user.js`
 
-## Configuration Sections
+If the marker is missing, the script exits with an error.
 
-### 🚀 FastFox (Performance)
+## Install in Firefox
 
-- **Canvas acceleration**: Hardware acceleration for canvas operations with optimized cache
-- **WebRender optimization**: Layer compositor enabled for improved rendering performance
-- **Cache management**: Disabled disk cache, optimized memory cache
-- **Media enhancements**: Improved media caching and image decoding
-- **Speculative loading**: Disabled prefetching for faster loading
+1. Open `about:profiles`
+2. Open the active profile root directory
+3. Copy `user.js` to that directory
+4. Restart Firefox
 
-### 🔒 SecureFox (Security)
+Recommended: install uBlock Origin and use [yokoffing filterlists](https://github.com/yokoffing/filterlists#guidelines).
 
-- **Strict tracking protection**: Enhanced content blocking with strict mode
-- **SSL/TLS hardening**: Improved certificate validation and 0-RTT disabled
-- **Mixed content blocking**: Enhanced security for HTTPS sites
-- **Telemetry completely disabled**: All Firefox telemetry and data collection blocked
-- **Safe browsing**: Configured for optimal security with remote downloads disabled
-- **OCSP validation**: Optimized certificate checking
-- **Global Privacy Control**: Enabled for enhanced privacy signaling
+## Highlights
 
-### 🎨 PeskyFox (UI/UX)
-
-- **Clean interface**: Removed promotional content and unnecessary UI elements
-- **Enhanced new tab page**: Customized without sponsored content or top stories
-- **Improved fullscreen**: Faster transitions and reduced warnings
-- **Better downloads**: Enhanced download management with temporary directory usage
-- **Mozilla UI cleanup**: Disabled VPN promotions, recommendations, and studies
-- **AI features blocked**: All Firefox AI and ML features disabled including chat, smart groups, and link previews
-- **Compact mode**: Available for denser interface
-
-### 🛡️ Custom Hardening Features
-
-#### Privacy & Security Enhancements
-
-- **HTTPS-Only Mode**: Forces HTTPS connections with user warnings in all windows
-- **DNS-over-HTTPS (DoH)**: Enforced encrypted DNS queries with strict mode (mode 2)
-- **Custom DNS Provider**: Uses BeaconDB for enhanced geolocation services
-- **Container tabs**: Enhanced isolation between browsing contexts enabled
-- **Social media tracking blocked**: Embedded content from social platforms disabled
-
-## Key Features
-
-### 🔐 Privacy Protection
-
-- **Firefox Sync disabled**: No data synchronization with Mozilla servers
-- **Login manager disabled**: No password storage or autofill
-- **Address/credit card autofill disabled**: No form data collection
-- **Social media tracking blocked**: Embedded content from social platforms disabled
-- **Comprehensive telemetry blocking**: All data collection and experiments disabled
-- **Crash reporting disabled**: No crash data sent to Mozilla
-- **Safe browsing optimized**: Local protection without remote queries
-
-### ⚡ Performance Optimizations
-
-- **Cache optimizations**: Memory-focused caching with disabled disk cache
-- **Network enhancements**: Increased connection limits and optimized SSL tokens
-- **Media improvements**: Enhanced caching and decoding parameters
-- **Cross-platform compatibility**: Works seamlessly on Windows, macOS, and Linux
-
-### 🎯 User Experience
-
-- **Mouse behavior**: Autoscroll enabled, middle-click paste disabled for Linux compatibility
-- **Bookmarks toolbar**: Always visible for quick access
-- **Session management**: Previous session restoration on startup
-- **Download behavior**: Always prompt for download location
-- **Fullscreen experience**: Instant transitions without warnings
-- **Compact mode**: Available for users preferring denser interfaces
-
-## Important Notes
-
-⚠️ **Compatibility**: Some settings may break certain websites or features. Test thoroughly with your browsing habits.
-
-⚠️ **Updates**: Changes to `about:config` while Firefox is running will be overwritten when Firefox restarts. Always edit the `user.js` file directly.
-
-⚠️ **Backup**: Keep a backup of your current Firefox profile before applying these changes.
-
-⚠️ **Advanced Privacy Features**: For maximum privacy features like Resist Fingerprinting Protocol (RFP) and WebRTC blocking, consider using [LibreWolf](https://librewolf.net/) instead.
-
-## Testing Your Configuration
-
-After applying the configuration:
-
-1. **Verify settings**: Visit `about:config` to confirm preferences are applied
-2. **Website compatibility**: Test your most-used websites for functionality
-3. **Privacy testing**: Check protection at [Cover Your Tracks](https://coveryourtracks.eff.org/)
-4. **Fingerprinting verification**: Test uniqueness at [AmIUnique](https://amiunique.org/)
-5. **DNS verification**: Confirm DoH is working at [Cloudflare DNS Test](https://1.1.1.1/help)
-6. **WebRTC leak test**: Verify IP protection at [BrowserLeaks WebRTC](https://browserleaks.com/webrtc)
-
-## Current Configuration Status
-
-✅ **Currently Active Features:**
-
-- HTTPS-Only Mode enforced globally
-- DNS-over-HTTPS in strict mode (mode 2)
-- Complete telemetry elimination
-- Container tabs enabled and UI visible
-- Social media tracking blocked
-- Login manager and autofill disabled
+- Betterfox base (FastFox, SecureFox, PeskyFox)
+- HTTPS-Only Mode enabled
+- DNS-over-HTTPS enabled (`network.trr.mode = 2`)
+- Telemetry and experiments disabled
 - Firefox Sync disabled
-- Custom BeaconDB geolocation provider
+- Login manager and form autofill disabled
+- Container tabs enabled
+- Social embed tracking restrictions
+- Linux-friendly mouse behavior overrides
 
-💡 **For Advanced Privacy Hardening:**
+## Maintenance Notes
 
-For users seeking maximum privacy protection with features like Resist Fingerprinting Protocol (RFP), WebRTC blocking, letterboxing, DRM disabling, and other advanced hardening options, consider using [LibreWolf](https://librewolf.net/) - a privacy-focused Firefox fork with these features enabled by default.
+- Changes made in `about:config` can be overwritten on restart by `user.js`
+- In this workflow, edit `overrides.js` and rebuild with `bash ./buildScript.sh`
+- Back up your Firefox profile before applying major changes
+- For stronger hardening defaults (e.g., anti-fingerprinting and stricter privacy), consider using [LibreWolf](https://librewolf.net/)
+
+## Validate your setup
+
+1. Verify key prefs in `about:config`
+2. Test your usual websites for breakage
+3. Check privacy at [Cover Your Tracks](https://coveryourtracks.eff.org/)
+4. Check DNS behavior at [Cloudflare DNS Test](https://1.1.1.1/help)
+5. Check WebRTC leaks at [BrowserLeaks WebRTC](https://browserleaks.com/webrtc)
 
 ## Credits
 
-- Based on [Betterfox](https://github.com/yokoffing/Betterfox) project
-- Privacy testing resources from [PrivacyGuides](https://privacyguides.org/)
+- Based on [Betterfox](https://github.com/yokoffing/Betterfox)
+- Privacy resources from [PrivacyGuides](https://privacyguides.org/)
